@@ -6,17 +6,17 @@
 cd $(dirname $0)
 
 echo "deploying rabbitmq"
-kubectl apply -f kubernetes/beehive-rabbitmq.yaml
+kubectl apply -f kubernetes/beehive-rabbitmq/beehive-rabbitmq.yaml
 
 echo "deploying message logger"
 ./update-rabbitmq-auth.sh beehive-message-logger-auth beehive-message-logger '.*' '.*' '.*'
 kubectl apply -f kubernetes/beehive-message-logger.yaml
 
 echo "deploying upload server"
-kubectl apply -f kubernetes/beehive-upload-server.yaml
+kubectl apply -f kubernetes/beehive-upload-server/beehive-upload-server.yaml
 
 echo "deploying influxdb"
-kubectl apply -f kubernetes/beehive-influxdb.yaml
+kubectl apply -f kubernetes/beehive-influxdb/beehive-influxdb.yaml
 
 setup_influxdb() {
     kubectl exec svc/beehive-influxdb -- influx setup \
@@ -53,7 +53,7 @@ token=$(generate_influxdb_token --write-buckets)
 kubectl create secret generic beehive-influxdb-loader-influxdb-token \
     --from-literal=token="$token"
 ./update-rabbitmq-auth.sh beehive-influxdb-loader-auth beehive-influxdb-loader '.*' '.*' '.*'
-kubectl apply -f kubernetes/beehive-influxdb-loader.yaml
+kubectl apply -f kubernetes/beehive-influxdb-loader/beehive-influxdb-loader.yaml
 
 echo "generating token for data api"
 token=$(generate_influxdb_token --read-buckets)
