@@ -29,10 +29,10 @@ setup_influxdb() {
 
 echo "setting up influxdb"
 while true; do
-    if msg=$(setup_influxdb); then
+    if msg=$(setup_influxdb 2>&1) ; then
         break
     fi
-    if [[ "$msg" == *"already been setup"* ]]; then
+    if [[ "$msg" == *"already been set up"* ]]; then
         echo "influxdb already setup. skipping."
         break
     fi
