@@ -1,0 +1,12 @@
+on: [push, pull_request]
+
+jobs:
+  create-beehive:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: nolar/setup-k3d-k3s@v1
+      - uses: actions/checkout@v5
+      - run: |
+          git clone https://github.com/waggle-sensor/waggle-pki-tools
+          pushd waggle-pki-tools && ./create-credentials-for-beehive.sh && popd
+          ./create-beehive.sh
