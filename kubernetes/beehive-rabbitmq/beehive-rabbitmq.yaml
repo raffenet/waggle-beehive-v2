@@ -156,7 +156,7 @@ spec:
             name: beehive-ca-certificate
         - name: tls
           secret:
-            secretName: beehive-rabbitmq-tls-secret
+            secretName: rabbitmq-tls-secret
         - name: data
           persistentVolumeClaim:
             claimName: rabbitmq-data

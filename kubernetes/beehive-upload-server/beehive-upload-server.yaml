@@ -72,7 +72,7 @@ spec:
           name: beehive-ssh-ca
       - name: ssh-host-key
         secret:
-          secretName: beehive-upload-server-ssh-host-key
+          secretName: upload-server-ssh-host-key
           defaultMode: 0600
       - name: home-dirs
         persistentVolumeClaim:
